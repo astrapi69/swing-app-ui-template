@@ -75,7 +75,7 @@ class InitialTemplateTest
 		File initialTemplateClassFile;
 		//
 		sourceProjectDir = PathFinder.getProjectDirectory();
-		templateProjectName = DependenciesInfo.JAVA_LIBRARY_TEMPLATE_NAME;
+		templateProjectName = "swing-app-ui-template";
 		templateProjectWithDotsName = templateProjectName.replaceAll("-", ".");
 		concreteProjectName = sourceProjectDir.getName();
 		concreteProjectWithDotsName = concreteProjectName.replaceAll("-", ".");
@@ -122,7 +122,7 @@ class InitialTemplateTest
 
 		ModifyFileExtensions.modifyFile(readme.toPath(),
 			(count,
-				input) -> input.replaceAll("javaLibraryTemplateVersion",
+				input) -> input.replaceAll("swingAppUiTemplateVersion",
 					DependenciesExtensions.getProjectVersionKeyName(concreteProjectName))
 					+ System.lineSeparator());
 
@@ -147,7 +147,7 @@ class InitialTemplateTest
 		// delete template run configurations
 		RuntimeExceptionDecorator.decorate(() -> DeleteFileExtensions.deleteFilesWithFileFilter(
 			copyGradleRunConfigurationsData.getIdeaTargetDir(),
-			new PrefixFileFilter("java_library_template", false)));
+			new PrefixFileFilter("swing_app_ui_template", false)));
 	}
 
 	private static void removeTemplateSection(File readme) throws IOException

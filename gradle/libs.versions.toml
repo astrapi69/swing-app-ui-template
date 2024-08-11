@@ -1,6 +1,7 @@
 [versions]
 commons-text-version = "1.12.0"
 file-worker-version = "17.3"
+gradle-izpack-plugin-version = "3.2"
 gradle-migration-data-version = "2.3"
 gradle-plugin-grgit-version = "5.2.2"
 gradle-plugin-license-version = "0.16.1"
@@ -43,6 +44,7 @@ unit-testing = [
 ]
 
 [plugins]
+gradle-izpack-plugin = { id = "com.bmuschko.izpack", version.ref = "gradle-izpack-plugin-version" }
 gradle-versions-plugin = { id = "com.github.ben-manes.versions", version.ref = "gradle-plugin-versions-version" }
 grgit-gradle = { id = "org.ajoberstar.grgit", version.ref = "gradle-plugin-grgit-version" }
 license-gradle-plugin = { id = "com.github.hierynomus.license", version.ref = "gradle-plugin-license-version" }
