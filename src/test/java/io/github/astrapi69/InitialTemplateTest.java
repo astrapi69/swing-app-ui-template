@@ -84,7 +84,7 @@ class InitialTemplateTest
 		File installXml = new File(izpackDir, "install.xml");
 		ModifyFileExtensions.modifyFile(installXml.toPath(),
 			(count, input) -> input.replaceAll(templateProjectName, concreteProjectName)
-					+ System.lineSeparator());
+				+ System.lineSeparator());
 		// adapt settings.gradle file
 		settingsGradle = new File(sourceProjectDir, DependenciesInfo.SETTINGS_GRADLE_FILENAME);
 		ModifyFileExtensions.modifyFile(settingsGradle.toPath(),
