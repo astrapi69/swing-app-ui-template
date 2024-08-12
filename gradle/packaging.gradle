@@ -1,10 +1,14 @@
 import java.text.SimpleDateFormat
 
+def mainClassName = project.property('mainClass')
+def releaseVersion = !version.endsWith("SNAPSHOT")
+
 jar {
     manifest {
         attributes(
                 "Name"                  : project.name,
                 "Manifest-Version"      : project.version,
+                "Main-Class"            : mainClassName,
                 "Implementation-Title"  : "$groupPackage" + "." + "$rootProject.name",
                 "Implementation-Version": project.version,
                 "Implementation-Vendor" : "$projectLeaderName",
@@ -14,4 +18,64 @@ jar {
                 "Build-Jdk"             : "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
                 "Build-OS"              : "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}")
     }
+}
+
+jar.doLast {
+    DirectoryProperty buildDirectoryProperty = layout.buildDirectory
+    String buildDirectory = buildDirectoryProperty.get()
+    def createIzPackInstallerStringProperty = project.property('createIzPackInstaller')
+    def createIzPackInstaller = createIzPackInstallerStringProperty.toBoolean()
+    if (releaseVersion || createIzPackInstaller) {
+        def pkAlias = project.property("$keyAlias")
+        def keystoreFileName = project.property("$storeFile")
+        def storePassword = project.property("$storePassword")
+        def keyPassword = project.property("$keyPassword")
+        def keystoreType = project.property("$storeType")
+        def libsFilePath = "$buildDirectory/libs"
+        def libFiles = files { file(libsFilePath).listFiles() }
+        def destDir = "$buildDirectory/signed"
+        def signedDir = new File(destDir)
+        signedDir.mkdirs()
+        libFiles.each {
+            ant.signjar(
+                    jar: 'build/libs/*.jar',
+                    destDir: "$destDir",
+                    alias: "$pkAlias",
+                    storetype: "$keystoreType",
+                    keystore: "$keystoreFileName",
+                    storepass: "$storePassword",
+                    keypass: "$keyPassword",
+                    verbose: true,
+                    preservelastmodified: "true"
+            )
+        }
+    } else {
+        println('Created jar file is not signed.\n' +
+                'IzPackInstaller can not be created because it depends on signed jar.')
+    }
+}
+
+task withAllDependendiesJar(type: Jar) {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    manifest.from jar.manifest
+    archiveClassifier = "all"
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+    with jar
+}
+
+task createIzPackInstallerFromSignedJar(dependsOn: [clean, withAllDependendiesJar, jar, izPackCreateInstaller]) {
+    withAllDependendiesJar.mustRunAfter(clean)
+    jar.mustRunAfter(withAllDependendiesJar)
+    izPackCreateInstaller.mustRunAfter(jar)
+}
+
+task createAllDependendiesJar(dependsOn: [clean, withAllDependendiesJar, jar]) {
+    withAllDependendiesJar.mustRunAfter(clean)
+    jar.mustRunAfter(withAllDependendiesJar)
 }
