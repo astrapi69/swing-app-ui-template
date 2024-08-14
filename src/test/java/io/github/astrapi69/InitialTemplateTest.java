@@ -79,12 +79,17 @@ class InitialTemplateTest
 		templateProjectWithDotsName = templateProjectName.replaceAll("-", ".");
 		concreteProjectName = sourceProjectDir.getName();
 		concreteProjectWithDotsName = concreteProjectName.replaceAll("-", ".");
+		// get gradle.properties file
+		File gradlePropertiesFile = FileFactory.newFile(sourceProjectDir,
+			DependenciesInfo.GRADLE_PROPERTIES_FILENAME);
+
 		// adapt install.xml file
 		File izpackDir = new File(sourceProjectDir, "src/main/izpack");
 		File installXml = new File(izpackDir, "install.xml");
 		ModifyFileExtensions.modifyFile(installXml.toPath(),
 			(count, input) -> input.replaceAll(templateProjectName, concreteProjectName)
 				+ System.lineSeparator());
+
 		// adapt settings.gradle file
 		settingsGradle = new File(sourceProjectDir, DependenciesInfo.SETTINGS_GRADLE_FILENAME);
 		ModifyFileExtensions.modifyFile(settingsGradle.toPath(),
@@ -101,11 +106,9 @@ class InitialTemplateTest
 			"github", "astrapi69", "InitialTemplate.java");
 
 		DeleteFileExtensions.delete(initialTemplateClassFile);
-		// change projectDescription from gradle.properties
-		File gradleProperties = FileFactory.newFile(sourceProjectDir,
-			DependenciesInfo.GRADLE_PROPERTIES_FILENAME);
 
-		ModifyFileExtensions.modifyFile(gradleProperties.toPath(),
+		// change projectDescription in gradle.properties
+		ModifyFileExtensions.modifyFile(gradlePropertiesFile.toPath(),
 			(count,
 				input) -> input.replaceAll(
 					"projectDescription=Template project for create java library projects",
