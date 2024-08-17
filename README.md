@@ -13,7 +13,8 @@
 
 </div>
 
-Template project for create java swing ui projects with izpack installer.
+Template project for create java swing ui projects with izpack installer. A small documentation how to use this
+template project in in the [wiki](https://github.com/astrapi69/swing-app-ui-template/wiki)
 
 > Please support this project by simply putting a Github <a class="github-button" href="https://github.com/astrapi69/swing-app-ui-template" data-icon="octicon-star" aria-label="Star astrapi69/swing-app-ui-template on GitHub">
 > Star ⭐</a>
