@@ -31,7 +31,8 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.java.Log;
 
 /**
- * The Class Messages holds extension methods for the class application {@link ResourceBundle} object
+ * The Class Messages holds extension methods for the class application {@link ResourceBundle}
+ * object
  */
 @Log
 @UtilityClass
