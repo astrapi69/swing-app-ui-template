@@ -35,7 +35,7 @@ import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 /**
- * The class {@link ApplicationModelBean} holds application specific data
+ * The class {@link ApplicationModelBean} holds application-specific data
  */
 @Getter
 @Setter
@@ -47,5 +47,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ApplicationModelBean
 {
+	/** The title of the application */
 	String title;
 }

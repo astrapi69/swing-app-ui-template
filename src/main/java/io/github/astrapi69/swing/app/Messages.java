@@ -27,30 +27,32 @@ package io.github.astrapi69.swing.app;
 import java.util.ResourceBundle;
 
 import io.github.astrapi69.resourcebundle.locale.ResourceBundleExtensions;
-import lombok.experimental.UtilityClass;
-import lombok.extern.java.Log;
 
 /**
- * The Class Messages holds extension methods for the class application {@link ResourceBundle}
- * object
+ * The class {@link Messages} holds extension methods for accessing string resources from the
+ * application's {@link ResourceBundle} object
  */
-@Log
-@UtilityClass
-public class Messages
+public final class Messages
 {
+	/**
+	 * Private constructor to prevent instantiation
+	 */
+	private Messages()
+	{
+	}
 
-	/** The Constant BUNDLE_NAME. */
+	/** The name of the resource bundle file */
 	private static final String BUNDLE_NAME = "ui.messages"; //$NON-NLS-1$
 
-	/** The Constant RESOURCE_BUNDLE. */
+	/** The {@link ResourceBundle} instance for the application */
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
 	/**
-	 * Gets the string from the application {@link ResourceBundle} object
+	 * Gets the string from the application's {@link ResourceBundle} object
 	 *
 	 * @param key
-	 *            the key
-	 * @return the {@link String} value from the given key
+	 *            the key for the desired string
+	 * @return the {@link String} value corresponding to the given key
 	 */
 	public static String getString(final String key)
 	{
@@ -58,18 +60,17 @@ public class Messages
 	}
 
 	/**
-	 * Gets the string from the application {@link ResourceBundle} object
+	 * Gets the string from the application's {@link ResourceBundle} object
 	 *
 	 * @param key
-	 *            the key
+	 *            the key for the desired string
 	 * @param defaultValue
-	 *            the default value
-	 * @return the {@link String} value from the given key or the given default value if it is not
-	 *         found
+	 *            the default value to return if the key is not found
+	 * @return the {@link String} value corresponding to the given key or the given default value if
+	 *         the key is not found
 	 */
 	public static String getString(final String key, final String defaultValue)
 	{
 		return ResourceBundleExtensions.getStringQuietly(RESOURCE_BUNDLE, key, defaultValue);
 	}
-
 }

@@ -27,16 +27,16 @@ package io.github.astrapi69.swing.app;
 import io.github.astrapi69.awt.screen.ScreenSizeExtensions;
 
 /**
- * The class {@link TemplateApplicationFrame} starts the application
+ * The class {@link StartApplication} starts the application
  */
 public class StartApplication
 {
 
 	/**
-	 * The main method that start this {@link TemplateApplicationFrame}
+	 * The main method that starts the application
 	 *
 	 * @param args
-	 *            the arguments
+	 *            the arguments passed to the application
 	 */
 	public static void main(final String[] args)
 	{

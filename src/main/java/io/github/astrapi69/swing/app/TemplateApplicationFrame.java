@@ -33,27 +33,38 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
+/**
+ * The class {@link TemplateApplicationFrame} represents the main frame of the application that sets
+ * up and initializes the application window with specific settings and components
+ */
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationModelBean>
 {
 
 	/**
-	 * The instance. -- GETTER -- Gets the single instance of object
+	 * The single instance of {@link TemplateApplicationFrame}
 	 *
 	 * @return single instance of {@link TemplateApplicationFrame} object
-	 *
 	 */
 	@Getter
 	private static TemplateApplicationFrame instance;
 
+	/** The main application panel */
 	ApplicationPanel applicationPanel;
 
+	/**
+	 * Constructs a new {@link TemplateApplicationFrame} with the specified title from the resource
+	 * bundle
+	 */
 	public TemplateApplicationFrame()
 	{
 		super(Messages.getString("mainframe.title"));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onBeforeInitialize()
 	{
@@ -63,11 +74,14 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 		}
 		// initialize model and model object
 		ApplicationModelBean applicationModelBean = ApplicationModelBean.builder()
-			.title("Template Frame").build();
+			.title(Messages.getString("mainframe.title")).build();
 		setModel(BaseModel.of(applicationModelBean));
 		super.onBeforeInitialize();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onAfterInitialize()
 	{
@@ -77,13 +91,18 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 		this.setSize(ScreenSizeExtensions.getScreenWidth(), ScreenSizeExtensions.getScreenHeight());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected String newIconPath()
 	{
 		return Messages.getString("global.icon.app.path");
 	}
 
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected BasePanel<ApplicationModelBean> newMainComponent()
 	{
