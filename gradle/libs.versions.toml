@@ -18,8 +18,18 @@ mockito-core-version = "5.12.0"
 silly-collection-version = "27.1"
 silly-io-version = "3.1"
 throwable-version = "3"
+swing-base-components-version = "4.2"
+model-data-version = "3.1"
+resourcebundle-core-version = "5"
+awt-extensions-version = "1.2"
+menu-action-version = "3.4"
 
 [libraries]
+menu-action = { module = "io.github.astrapi69:menu-action", version.ref = "menu-action-version" }
+awt-extensions = { module = "io.github.astrapi69:awt-extensions", version.ref = "awt-extensions-version" }
+resourcebundle-core = { module = "io.github.astrapi69:resourcebundle-core", version.ref = "resourcebundle-core-version" }
+model-data = { module = "io.github.astrapi69:model-data", version.ref = "model-data-version" }
+swing-base-components = { module = "io.github.astrapi69:swing-base-components", version.ref = "swing-base-components-version" }
 commons-text = { module = "org.apache.commons:commons-text", version.ref = "commons-text-version" }
 file-worker = { module = "io.github.astrapi69:file-worker", version.ref = "file-worker-version" }
 gradle-migration-data = { module = "io.github.astrapi69:gradle-migration-data", version.ref = "gradle-migration-data-version" }

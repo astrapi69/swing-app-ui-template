@@ -5,6 +5,12 @@ dependencies {
     testCompileOnly libs.lombok
     testAnnotationProcessor libs.lombok
 
+    implementation libs.awt.extensions
+    implementation libs.swing.base.components
+    implementation libs.model.data
+    implementation libs.resourcebundle.core
+    implementation libs.menu.action
+
     testImplementation libs.commons.text
     testImplementation libs.file.worker
     testImplementation libs.gradle.migration.data
