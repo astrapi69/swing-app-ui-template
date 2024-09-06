@@ -30,6 +30,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
+import io.github.astrapi69.file.exception.FileDoesNotExistException;
+import io.github.astrapi69.file.exception.FileIsADirectoryException;
+import io.github.astrapi69.file.rename.RenameFileExtensions;
+import io.github.astrapi69.gradle.migration.extension.GitExtensions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -130,8 +134,18 @@ class InitialTemplateTest
 
 		// remove section 'Template from this project'
 		removeTemplateSection(readme);
+		// process doc files
+        try {
+            handleDocFiles(templateProjectName, concreteProjectName);
+        } catch (FileIsADirectoryException e) {
+            throw new RuntimeException(e);
+        } catch (FileDoesNotExistException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-		// create run configurations for current project
+        // create run configurations for current project
 		String sourceProjectDirNamePrefix;
 		String targetProjectDirNamePrefix;
 		CopyGradleRunConfigurations copyGradleRunConfigurationsData;
@@ -150,6 +164,31 @@ class InitialTemplateTest
 		RuntimeExceptionDecorator.decorate(() -> DeleteFileExtensions.deleteFilesWithFileFilter(
 			copyGradleRunConfigurationsData.getIdeaTargetDir(),
 			new PrefixFileFilter("swing_app_ui_template", false)));
+	}
+
+	private void handleDocFiles(String templateProjectName, String concreteProjectName) throws IOException, FileIsADirectoryException, FileDoesNotExistException, InterruptedException {
+		File resourcesDocDir = PathFinder.getRelativePath(PathFinder.getSrcMainResourcesDir(), "doc");
+		File startBatFile = FileFactory.newFile(resourcesDocDir,  "start.bat");
+		File startShFile = FileFactory.newFile(resourcesDocDir,  "start.sh");
+		// Modify start.bat file...
+		ModifyFileExtensions.modifyFile(startBatFile.toPath(),
+				(count, input) -> input.replaceAll(templateProjectName, concreteProjectName)
+						+ System.lineSeparator());
+		// Modify start.sh file...
+		ModifyFileExtensions.modifyFile(startShFile.toPath(),
+				(count, input) -> input.replaceAll(templateProjectName, concreteProjectName)
+						+ System.lineSeparator());
+
+		File desktopFile = FileFactory.newFile(resourcesDocDir, templateProjectName + ".desktop");
+		// Modify desktop file...
+		ModifyFileExtensions.modifyFile(desktopFile.toPath(),
+				(count, input) -> input.replaceAll(templateProjectName, concreteProjectName)
+						+ System.lineSeparator());
+		RenameFileExtensions.renameFile(desktopFile, concreteProjectName +".desktop");
+
+		String parent = desktopFile.getParent();
+		String desktopFilePath = parent + "/" + concreteProjectName +".desktop";
+		GitExtensions.addFileToGit(desktopFilePath, "/bin/sh", parent);
 	}
 
 	private static void removeTemplateSection(File readme) throws IOException
