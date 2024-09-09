@@ -32,6 +32,8 @@ import io.github.astrapi69.swing.plaf.LookAndFeels;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
+import org.pf4j.DefaultPluginManager;
+import org.pf4j.PluginManager;
 
 /**
  * The class {@link TemplateApplicationFrame} represents the main frame of the application that sets
@@ -53,6 +55,8 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 	/** The main application panel */
 	ApplicationPanel applicationPanel;
 
+	PluginManager pluginManager;
+
 	/**
 	 * Constructs a new {@link TemplateApplicationFrame} with the specified title from the resource
 	 * bundle
@@ -72,6 +76,7 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 		{
 			instance = this;
 		}
+		pluginManager = new DefaultPluginManager();
 		// initialize model and model object
 		ApplicationModelBean applicationModelBean = ApplicationModelBean.builder()
 			.title(Messages.getString("mainframe.title")).build();
@@ -86,6 +91,9 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 	protected void onAfterInitialize()
 	{
 		super.onAfterInitialize();
+		// start and load all plugins of application
+		pluginManager.loadPlugins();
+		pluginManager.startPlugins();
 		setTitle(Messages.getString("mainframe.title"));
 		setDefaultLookAndFeel(LookAndFeels.NIMBUS, this);
 		this.setSize(ScreenSizeExtensions.getScreenWidth(), ScreenSizeExtensions.getScreenHeight());

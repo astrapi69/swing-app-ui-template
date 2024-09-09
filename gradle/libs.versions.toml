@@ -3,8 +3,8 @@ awt-extensions-version = "1.2"
 commons-text-version = "1.12.0"
 file-worker-version = "17.4"
 gradle-migration-data-version = "2.4"
-gradle-plugin-izpack-version = "3.2"
 gradle-plugin-grgit-version = "5.2.2"
+gradle-plugin-izpack-version = "3.2"
 gradle-plugin-license-version = "0.16.1"
 gradle-plugin-lombok-version = "8.7.1"
 gradle-plugin-spotless-version = "7.0.0.BETA1"
@@ -19,6 +19,7 @@ meanbean-version = "3.0.0-M9"
 menu-action-version = "3.4"
 mockito-core-version = "5.12.0"
 model-data-version = "3.1"
+pf4j-version = "3.12.0"
 resourcebundle-core-version = "5"
 silly-collection-version = "27.1"
 silly-io-version = "3.1"
@@ -40,6 +41,7 @@ menu-action = { module = "io.github.astrapi69:menu-action", version.ref = "menu-
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core-version" }
 mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito-core-version" }
 model-data = { module = "io.github.astrapi69:model-data", version.ref = "model-data-version" }
+pf4j = { module = "org.pf4j:pf4j", version.ref = "pf4j-version" }
 resourcebundle-core = { module = "io.github.astrapi69:resourcebundle-core", version.ref = "resourcebundle-core-version" }
 silly-collection = { module = "io.github.astrapi69:silly-collection", version.ref = "silly-collection-version" }
 silly-io = { module = "io.github.astrapi69:silly-io", version.ref = "silly-io-version" }

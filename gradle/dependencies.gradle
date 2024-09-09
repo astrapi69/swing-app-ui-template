@@ -13,6 +13,7 @@ dependencies {
     implementation libs.model.data
     implementation libs.resourcebundle.core
     implementation libs.menu.action
+    implementation libs.pf4j
 
     testImplementation libs.commons.text
     testImplementation libs.file.worker
