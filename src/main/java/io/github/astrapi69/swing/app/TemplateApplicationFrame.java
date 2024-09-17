@@ -55,6 +55,7 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 	/** The main application panel */
 	ApplicationPanel applicationPanel;
 
+	/** The plugin manager */
 	PluginManager pluginManager;
 
 	/**
@@ -76,12 +77,29 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 		{
 			instance = this;
 		}
-		pluginManager = new DefaultPluginManager();
+		pluginManager = newPluginManager();
 		// initialize model and model object
 		ApplicationModelBean applicationModelBean = ApplicationModelBean.builder()
 			.title(Messages.getString("mainframe.title")).build();
 		setModel(BaseModel.of(applicationModelBean));
 		super.onBeforeInitialize();
+	}
+
+	/**
+	 * Factory method for create the plugin manager
+	 */
+	protected PluginManager newPluginManager()
+	{
+		PluginManager pluginManager = new DefaultPluginManager();
+		return pluginManager;
+	}
+
+	/**
+	 * Starts and loads all plugins of the application
+	 */
+	protected void startAndLoadAllPlugins(){
+		pluginManager.loadPlugins();
+		pluginManager.startPlugins();
 	}
 
 	/**
@@ -91,9 +109,7 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 	protected void onAfterInitialize()
 	{
 		super.onAfterInitialize();
-		// start and load all plugins of application
-		pluginManager.loadPlugins();
-		pluginManager.startPlugins();
+		startAndLoadAllPlugins();
 		setTitle(Messages.getString("mainframe.title"));
 		setDefaultLookAndFeel(LookAndFeels.NIMBUS, this);
 		this.setSize(ScreenSizeExtensions.getScreenWidth(), ScreenSizeExtensions.getScreenHeight());
