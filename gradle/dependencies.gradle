@@ -13,6 +13,9 @@ dependencies {
     implementation libs.model.data
     implementation libs.resourcebundle.core
     implementation libs.menu.action
+    implementation libs.slf4j.api
+    implementation libs.jul.to.slf4j
+    implementation libs.logback.classic
     implementation libs.pf4j
 
     testImplementation libs.commons.text

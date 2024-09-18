@@ -24,11 +24,18 @@
  */
 package io.github.astrapi69.swing.app;
 
+import java.io.IOException;
+import java.util.logging.LogManager;
+
+import org.slf4j.bridge.SLF4JBridgeHandler;
+
 import io.github.astrapi69.awt.screen.ScreenSizeExtensions;
+import lombok.extern.java.Log;
 
 /**
  * The class {@link StartApplication} starts the application
  */
+@Log
 public class StartApplication
 {
 
@@ -40,10 +47,39 @@ public class StartApplication
 	 */
 	public static void main(final String[] args)
 	{
+		loadLoggingFile();
+		setupJavaUtilLoggingToSlf4jBridge();
+		log.info("JUL logs are now routed to SLF4J.");
 		TemplateApplicationFrame frame = new TemplateApplicationFrame();
 		while (!frame.isVisible())
 		{
 			ScreenSizeExtensions.showFrame(frame);
+		}
+	}
+
+	/**
+	 * Sets up the SLF4J bridge handler to capture JUL logs. It removes the default JUL loggers and
+	 * installs the SLF4J bridge handler to capture JUL logs
+	 */
+	public static void setupJavaUtilLoggingToSlf4jBridge()
+	{
+		SLF4JBridgeHandler.removeHandlersForRootLogger();
+		SLF4JBridgeHandler.install();
+	}
+
+	/**
+	 * Load the logging properties file to the {@link LogManager}
+	 */
+	public static void loadLoggingFile()
+	{
+		try
+		{
+			LogManager.getLogManager().readConfiguration(
+				StartApplication.class.getClassLoader().getResourceAsStream("logging.properties"));
+		}
+		catch (IOException e)
+		{
+			System.err.println("Could not load logging properties file");
 		}
 	}
 

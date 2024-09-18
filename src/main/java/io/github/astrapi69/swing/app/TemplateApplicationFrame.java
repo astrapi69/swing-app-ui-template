@@ -24,6 +24,9 @@
  */
 package io.github.astrapi69.swing.app;
 
+import org.pf4j.DefaultPluginManager;
+import org.pf4j.PluginManager;
+
 import io.github.astrapi69.awt.screen.ScreenSizeExtensions;
 import io.github.astrapi69.model.BaseModel;
 import io.github.astrapi69.swing.base.ApplicationPanelFrame;
@@ -32,8 +35,6 @@ import io.github.astrapi69.swing.plaf.LookAndFeels;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import org.pf4j.DefaultPluginManager;
-import org.pf4j.PluginManager;
 
 /**
  * The class {@link TemplateApplicationFrame} represents the main frame of the application that sets
@@ -97,7 +98,8 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 	/**
 	 * Starts and loads all plugins of the application
 	 */
-	protected void startAndLoadAllPlugins(){
+	protected void startAndLoadAllPlugins()
+	{
 		pluginManager.loadPlugins();
 		pluginManager.startPlugins();
 	}
