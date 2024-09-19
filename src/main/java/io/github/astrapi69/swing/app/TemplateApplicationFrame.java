@@ -24,7 +24,9 @@
  */
 package io.github.astrapi69.swing.app;
 
+import org.pf4j.DefaultExtensionFinder;
 import org.pf4j.DefaultPluginManager;
+import org.pf4j.ExtensionFinder;
 import org.pf4j.PluginManager;
 
 import io.github.astrapi69.awt.screen.ScreenSizeExtensions;
@@ -91,7 +93,22 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 	 */
 	protected PluginManager newPluginManager()
 	{
-		PluginManager pluginManager = new DefaultPluginManager();
+		PluginManager pluginManager = new DefaultPluginManager()
+		{
+
+			/**
+			 * {@inheritDoc}
+			 * <p>
+			 * Customizes the extension finder by adding a service provider extension finder
+			 */
+			protected ExtensionFinder createExtensionFinder()
+			{
+				DefaultExtensionFinder extensionFinder = (DefaultExtensionFinder)super.createExtensionFinder();
+				extensionFinder.addServiceProviderExtensionFinder();
+				return extensionFinder;
+			}
+
+		};
 		return pluginManager;
 	}
 
