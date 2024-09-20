@@ -24,10 +24,18 @@
  */
 package io.github.astrapi69.swing.app;
 
+import java.nio.file.Paths;
+
+import org.pf4j.CompoundPluginRepository;
 import org.pf4j.DefaultExtensionFinder;
-import org.pf4j.DefaultPluginManager;
+import org.pf4j.DefaultPluginRepository;
 import org.pf4j.ExtensionFinder;
+import org.pf4j.JarPluginLoader;
+import org.pf4j.JarPluginManager;
+import org.pf4j.JarPluginRepository;
+import org.pf4j.PluginLoader;
 import org.pf4j.PluginManager;
+import org.pf4j.PluginRepository;
 
 import io.github.astrapi69.awt.screen.ScreenSizeExtensions;
 import io.github.astrapi69.model.BaseModel;
@@ -49,8 +57,6 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 
 	/**
 	 * The single instance of {@link TemplateApplicationFrame}
-	 *
-	 * @return single instance of {@link TemplateApplicationFrame} object
 	 */
 	@Getter
 	private static TemplateApplicationFrame instance;
@@ -93,19 +99,27 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 	 */
 	protected PluginManager newPluginManager()
 	{
-		PluginManager pluginManager = new DefaultPluginManager()
+		JarPluginManager pluginManager = new JarPluginManager(Paths.get("plugins"))
 		{
-
-			/**
-			 * {@inheritDoc}
-			 * <p>
-			 * Customizes the extension finder by adding a service provider extension finder
-			 */
 			protected ExtensionFinder createExtensionFinder()
 			{
 				DefaultExtensionFinder extensionFinder = (DefaultExtensionFinder)super.createExtensionFinder();
 				extensionFinder.addServiceProviderExtensionFinder();
 				return extensionFinder;
+			}
+
+			@Override
+			protected PluginRepository createPluginRepository()
+			{
+				return new CompoundPluginRepository()
+					.add(new DefaultPluginRepository(getPluginsRoot()))
+					.add(new JarPluginRepository(getPluginsRoot()));
+			}
+
+			@Override
+			protected PluginLoader createPluginLoader()
+			{
+				return new JarPluginLoader(this);
 			}
 
 		};
@@ -149,6 +163,19 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 	@Override
 	protected BasePanel<ApplicationModelBean> newMainComponent()
 	{
-		return new ApplicationPanel(getModel());
+		applicationPanel = newApplicationPanel();
+		return applicationPanel;
 	}
+
+	/**
+	 * Factory method for create a new {@link ApplicationPanel} object
+	 *
+	 * @return the new {@link ApplicationPanel} object
+	 */
+	protected ApplicationPanel newApplicationPanel()
+	{
+		ApplicationPanel applicationPanel = new ApplicationPanel(getModel());
+		return applicationPanel;
+	}
+
 }
