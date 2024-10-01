@@ -6,41 +6,40 @@ gradle-migration-data-version = "2.4"
 gradle-plugin-grgit-version = "5.2.2"
 gradle-plugin-izpack-version = "3.2"
 gradle-plugin-license-version = "0.16.1"
-gradle-plugin-lombok-version = "8.7.1"
-gradle-plugin-spotless-version = "7.0.0.BETA1"
+gradle-plugin-lombok-version = "8.10"
+gradle-plugin-spotless-version = "7.0.0.BETA2"
 gradle-plugin-version-catalog-update-version = "0.8.4"
 gradle-plugin-versions-version = "0.51.0"
 izpack-ant-version = "5.2.2"
-junit-jupiter-params-version = "5.11.0"
-junit-jupiter-version = "5.11.0"
-junit-platform-launcher-version = "1.11.0"
+jul-to-slf4j-version = "2.1.0-alpha1"
+junit-jupiter-params-version = "5.11.1"
+junit-jupiter-version = "5.11.1"
+junit-platform-launcher-version = "1.11.1"
+logback-classic-version = "1.5.8"
 lombok-version = "1.18.34"
 meanbean-version = "3.0.0-M9"
-menu-action-version = "3.4"
-mockito-core-version = "5.12.0"
+menu-action-version = "4.0"
+mockito-core-version = "5.14.1"
 model-data-version = "3.1"
 pf4j-version = "3.12.0"
 resourcebundle-core-version = "5"
-silly-collection-version = "27.1"
+silly-collection-version = "28"
 silly-io-version = "3.1"
+slf4j-api-version = "2.1.0-alpha1"
 swing-base-components-version = "4.2"
 throwable-version = "3"
-slf4j-api-version = "2.0.9"
-jul-to-slf4j-version = "2.0.9"
-logback-classic-version = "1.4.11"
 
 [libraries]
-slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j-api-version" }
-logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-classic-version" }
-jul-to-slf4j = { module = "org.slf4j:jul-to-slf4j", version.ref = "jul-to-slf4j-version" }
 awt-extensions = { module = "io.github.astrapi69:awt-extensions", version.ref = "awt-extensions-version" }
 commons-text = { module = "org.apache.commons:commons-text", version.ref = "commons-text-version" }
 file-worker = { module = "io.github.astrapi69:file-worker", version.ref = "file-worker-version" }
 gradle-migration-data = { module = "io.github.astrapi69:gradle-migration-data", version.ref = "gradle-migration-data-version" }
 izpack-ant = { module = "org.codehaus.izpack:izpack-ant", version.ref = "izpack-ant-version" }
+jul-to-slf4j = { module = "org.slf4j:jul-to-slf4j", version.ref = "jul-to-slf4j-version" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter-version" }
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit-jupiter-params-version" }
-junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform-launcher-version" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-classic-version" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok-version" }
 meanbean = { module = "com.github.meanbeanlib:meanbean", version.ref = "meanbean-version" }
 menu-action = { module = "io.github.astrapi69:menu-action", version.ref = "menu-action-version" }
@@ -51,16 +50,63 @@ pf4j = { module = "org.pf4j:pf4j", version.ref = "pf4j-version" }
 resourcebundle-core = { module = "io.github.astrapi69:resourcebundle-core", version.ref = "resourcebundle-core-version" }
 silly-collection = { module = "io.github.astrapi69:silly-collection", version.ref = "silly-collection-version" }
 silly-io = { module = "io.github.astrapi69:silly-io", version.ref = "silly-io-version" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j-api-version" }
 swing-base-components = { module = "io.github.astrapi69:swing-base-components", version.ref = "swing-base-components-version" }
 throwable = { module = "io.github.astrapi69:throwable", version.ref = "throwable-version" }
 
 [bundles]
+# Dependencies for the annotation processor used during the compilation process
+annotation-processor = [
+    "lombok",
+]
+# Dependencies required only at compile-time and not included in the final artifact
+compile-only = [
+    "lombok",
+]
+# Bundle of the core dependencies
+core-dependencies = [
+    "awt-extensions",
+    "menu-action",
+    "model-data",
+    "pf4j",
+    "resourcebundle-core",
+    "swing-base-components",
+]
+# Bundle of the izpack dependencies
+izpack = [
+    "izpack-ant",
+]
+# Bundle of the logging dependencies
+logging = [
+    "jul-to-slf4j",
+    "logback-classic",
+    "slf4j-api",
+]
+# Annotation processor dependencies used specifically for test classes
+test-annotation-processor = [
+    "lombok",
+]
+# Dependencies required only at test compile-time and not included in test runtime
+test-compile-only = [
+    "lombok",
+]
+# Dependencies required only at test runtime, such as test execution platforms
+test-runtime-only = [
+    "junit-platform-launcher",
+]
+# Dependencies required for unit testing, including assertions, mocking, and parameterized tests
 unit-testing = [
+    "commons-text",
+    "file-worker",
+    "gradle-migration-data",
     "junit-jupiter",
     "junit-jupiter-params",
     "meanbean",
     "mockito-core",
     "mockito-junit-jupiter",
+    "silly-collection",
+    "silly-io",
+    "throwable",
 ]
 
 [plugins]

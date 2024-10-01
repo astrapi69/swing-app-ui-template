@@ -1,31 +1,18 @@
 dependencies {
 
-    izpack libs.izpack.ant
-
-    compileOnly libs.lombok
-    annotationProcessor libs.lombok
-
-    testCompileOnly libs.lombok
-    testAnnotationProcessor libs.lombok
-
-    implementation libs.awt.extensions
-    implementation libs.swing.base.components
-    implementation libs.model.data
-    implementation libs.resourcebundle.core
-    implementation libs.menu.action
-    implementation libs.slf4j.api
-    implementation libs.jul.to.slf4j
-    implementation libs.logback.classic
-    implementation libs.pf4j
-
-    testImplementation libs.commons.text
-    testImplementation libs.file.worker
-    testImplementation libs.gradle.migration.data
-    testImplementation libs.silly.collection
-    testImplementation libs.silly.io
-    testImplementation libs.throwable
     // Note: use of bundles...
+    izpack libs.bundles.izpack
+
+    compileOnly libs.bundles.compile.only
+    annotationProcessor libs.bundles.annotation.processor
+
+    testCompileOnly libs.bundles.test.compile.only
+    testAnnotationProcessor libs.bundles.test.annotation.processor
+
+    implementation libs.bundles.logging
+    implementation libs.bundles.core.dependencies
+
     testImplementation libs.bundles.unit.testing
-    testRuntimeOnly libs.junit.platform.launcher
+    testRuntimeOnly libs.bundles.test.runtime.only
 
 }
