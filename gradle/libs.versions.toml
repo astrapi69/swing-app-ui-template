@@ -25,7 +25,7 @@ resourcebundle-core-version = "5"
 silly-collection-version = "28"
 silly-io-version = "3.1"
 slf4j-api-version = "2.1.0-alpha1"
-swing-base-components-version = "4.2"
+swing-base-components-version = "5.0"
 throwable-version = "3"
 
 [libraries]
