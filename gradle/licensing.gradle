@@ -9,6 +9,7 @@ license {
               "**/NOTICE",
               "**/package-info.java",
               "**/*.xml",
+              "**/*.sh",
               "**/*.xsl",
               "**/*.xsd",
               "**/*.dtd",
