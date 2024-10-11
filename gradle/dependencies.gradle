@@ -3,11 +3,11 @@ dependencies {
     // Note: use of bundles...
     izpack libs.bundles.izpack
 
-    compileOnly libs.bundles.compile.only
     annotationProcessor libs.bundles.annotation.processor
+    compileOnly libs.bundles.compile.only
 
-    testCompileOnly libs.bundles.test.compile.only
     testAnnotationProcessor libs.bundles.test.annotation.processor
+    testCompileOnly libs.bundles.test.compile.only
 
     implementation libs.bundles.logging
     implementation libs.bundles.core.dependencies
