@@ -20,12 +20,15 @@ jar {
     }
 }
 
+/**
+ * @deprecated use instead the task 'signJar' after that is after this task
+ */
 jar.doLast {
-    DirectoryProperty buildDirectoryProperty = layout.buildDirectory
-    String buildDirectory = buildDirectoryProperty.get()
     def createIzPackInstallerStringProperty = project.property('createIzPackInstaller')
     def createIzPackInstaller = createIzPackInstallerStringProperty.toBoolean()
     if (releaseVersion || createIzPackInstaller) {
+        DirectoryProperty buildDirectoryProperty = layout.buildDirectory
+        String buildDirectory = buildDirectoryProperty.get()
         def pkAlias = project.property("$keyAlias")
         def keystoreFileName = project.property("$storeFile")
         def storePassword = project.property("$storePassword")
