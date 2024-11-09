@@ -24,36 +24,21 @@
  */
 package io.github.astrapi69.swing.app;
 
-import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.LogManager;
-
-import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import io.github.astrapi69.file.system.SystemPropertiesExtensions;
 
 /**
- * The class {@link LoggingConfiguration} setups the logging for the application
+ * The class {@link ApplicationLoggingConfiguration} setups the logging for the application
  */
-public final class LoggingConfiguration
+public final class ApplicationLoggingConfiguration
 {
 
 	/**
 	 * Private constructor to prevent instantiation
 	 */
-	private LoggingConfiguration()
+	private ApplicationLoggingConfiguration()
 	{
-	}
-
-	/**
-	 * Sets up all for logging
-	 */
-	public static void setup()
-	{
-		// Remove existing handlers attached to the root logger
-		LogManager.getLogManager().reset();
-		loadLoggingFile();
-		setupJavaUtilLoggingToSlf4jBridge();
 	}
 
 	/**
@@ -78,32 +63,6 @@ public final class LoggingConfiguration
 		properties.setProperty("pf4j.plugins.debug", "true");
 		properties.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
 		SystemPropertiesExtensions.setSystemProperties(properties);
-	}
-
-	/**
-	 * Sets up the SLF4J bridge handler to capture JUL logs. It removes the default JUL loggers and
-	 * installs the SLF4J bridge handler to capture JUL logs
-	 */
-	public static void setupJavaUtilLoggingToSlf4jBridge()
-	{
-		SLF4JBridgeHandler.removeHandlersForRootLogger();
-		SLF4JBridgeHandler.install();
-	}
-
-	/**
-	 * Load the logging properties file to the {@link LogManager}
-	 */
-	public static void loadLoggingFile()
-	{
-		try
-		{
-			LogManager.getLogManager().readConfiguration(LoggingConfiguration.class.getClassLoader()
-				.getResourceAsStream("logging.properties"));
-		}
-		catch (IOException e)
-		{
-			System.err.println("Could not load logging properties file");
-		}
 	}
 
 }

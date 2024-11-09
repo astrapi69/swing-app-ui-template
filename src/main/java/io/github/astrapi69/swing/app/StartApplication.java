@@ -25,6 +25,7 @@
 package io.github.astrapi69.swing.app;
 
 import io.github.astrapi69.awt.screen.ScreenSizeExtensions;
+import io.github.astrapisixtynine.easy.logger.LoggingConfiguration;
 import lombok.extern.java.Log;
 
 /**
@@ -42,7 +43,7 @@ public class StartApplication
 	 */
 	public static void main(final String[] args)
 	{
-		LoggingConfiguration.setDefaultSystemProperties();
+		ApplicationLoggingConfiguration.setDefaultSystemProperties();
 		LoggingConfiguration.setup();
 		log.info("JUL logs are now routed to SLF4J.");
 		TemplateApplicationFrame frame = new TemplateApplicationFrame();

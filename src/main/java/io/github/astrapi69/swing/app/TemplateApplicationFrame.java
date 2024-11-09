@@ -96,6 +96,8 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 
 	/**
 	 * Factory method for create the plugin manager
+	 * 
+	 * @return the new created {@link PluginManager} object
 	 */
 	protected PluginManager newPluginManager()
 	{

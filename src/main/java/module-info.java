@@ -22,6 +22,7 @@ module io.github.astrapisixtynine.swing.app.ui.template
 {
 	requires static lombok;
 	requires io.github.astrapisixtynine.awt.extensions;
+	requires io.github.astrapisixtynine.easy.logger;
 	requires io.github.astrapisixtynine.file.worker;
 	requires io.github.astrapisixtynine.menu.action;
 	requires io.github.astrapisixtynine.resourcebundle.core;
