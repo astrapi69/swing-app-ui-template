@@ -30,6 +30,8 @@ import java.util.logging.LogManager;
 
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
+import io.github.astrapi69.file.system.SystemPropertiesExtensions;
+
 /**
  * The class {@link LoggingConfiguration} setups the logging for the application
  */
@@ -63,7 +65,8 @@ public final class LoggingConfiguration
 	 * <li>{@code pf4j.pluginsDir} - specifies the plugins directory, set to {@code plugins}</li>
 	 * <li>{@code pf4j.plugins.debug} - enables plugin debugging, set to {@code true}</li>
 	 * </ul>
-	 * The method calls {@link #setSystemProperties(Properties)} to apply these default settings
+	 * The method calls {@link SystemPropertiesExtensions#setSystemProperties(Properties)} to apply
+	 * these default settings
 	 */
 	public static void setDefaultSystemProperties()
 	{
@@ -74,18 +77,7 @@ public final class LoggingConfiguration
 		properties.setProperty("pf4j.pluginsDir", "plugins");
 		properties.setProperty("pf4j.plugins.debug", "true");
 		properties.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
-		setSystemProperties(properties);
-	}
-
-	/**
-	 * Sets each entry from the specified {@link Properties} as a system property
-	 *
-	 * @param properties
-	 *            the {@link Properties} to set as system properties
-	 */
-	private static void setSystemProperties(final Properties properties)
-	{
-		properties.forEach((key, value) -> System.setProperty(key.toString(), value.toString()));
+		SystemPropertiesExtensions.setSystemProperties(properties);
 	}
 
 	/**
