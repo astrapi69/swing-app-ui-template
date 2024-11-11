@@ -62,7 +62,7 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 	private static TemplateApplicationFrame instance;
 
 	/** The main application panel */
-	ApplicationPanel applicationPanel;
+	BasePanel<ApplicationModelBean> applicationPanel;
 
 	/** The plugin manager */
 	PluginManager pluginManager;
@@ -103,6 +103,9 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 	{
 		JarPluginManager pluginManager = new JarPluginManager(Paths.get("plugins"))
 		{
+			/**
+			 * {@inheritDoc}
+			 */
 			protected ExtensionFinder createExtensionFinder()
 			{
 				DefaultExtensionFinder extensionFinder = (DefaultExtensionFinder)super.createExtensionFinder();
@@ -110,6 +113,9 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 				return extensionFinder;
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			protected PluginRepository createPluginRepository()
 			{
@@ -118,6 +124,9 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 					.add(new JarPluginRepository(getPluginsRoot()));
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			protected PluginLoader createPluginLoader()
 			{
@@ -170,13 +179,13 @@ public class TemplateApplicationFrame extends ApplicationPanelFrame<ApplicationM
 	}
 
 	/**
-	 * Factory method for create a new {@link ApplicationPanel} object
+	 * Factory method for create a new {@link BasePanel} object
 	 *
-	 * @return the new {@link ApplicationPanel} object
+	 * @return the new {@link BasePanel} object
 	 */
-	protected ApplicationPanel newApplicationPanel()
+	protected BasePanel<ApplicationModelBean> newApplicationPanel()
 	{
-		ApplicationPanel applicationPanel = new ApplicationPanel(getModel());
+		BasePanel<ApplicationModelBean> applicationPanel = new ApplicationPanel(getModel());
 		return applicationPanel;
 	}
 
