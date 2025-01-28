@@ -22,35 +22,31 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.astrapi69.swing.app;
+package io.github.astrapi69.swing.app.model;
 
-import io.github.astrapi69.awt.screen.ScreenSizeExtensions;
-import io.github.astrapisixtynine.easy.logger.LoggingConfiguration;
-import lombok.extern.java.Log;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 /**
- * The class {@link StartApplication} starts the application
+ * The class {@link ApplicationModelBean} holds application-specific data
  */
-@Log
-public class StartApplication
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class ApplicationModelBean
 {
-
-	/**
-	 * The main method that starts the application
-	 *
-	 * @param args
-	 *            the arguments passed to the application
-	 */
-	public static void main(final String[] args)
-	{
-		ApplicationLoggingConfiguration.setDefaultSystemProperties();
-		LoggingConfiguration.setup();
-		log.info("JUL logs are now routed to SLF4J.");
-		TemplateApplicationFrame frame = new TemplateApplicationFrame();
-		while (!frame.isVisible())
-		{
-			ScreenSizeExtensions.showFrame(frame);
-		}
-	}
-
+	/** The title of the application */
+	String title;
 }

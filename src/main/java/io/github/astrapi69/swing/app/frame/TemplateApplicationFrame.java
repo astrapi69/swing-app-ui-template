@@ -22,7 +22,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.astrapi69.swing.app;
+package io.github.astrapi69.swing.app.frame;
 
 import java.nio.file.Paths;
 
@@ -39,6 +39,9 @@ import org.pf4j.PluginRepository;
 
 import io.github.astrapi69.awt.screen.ScreenSizeExtensions;
 import io.github.astrapi69.model.BaseModel;
+import io.github.astrapi69.swing.app.i18n.Messages;
+import io.github.astrapi69.swing.app.model.ApplicationModelBean;
+import io.github.astrapi69.swing.app.panel.ApplicationPanel;
 import io.github.astrapi69.swing.base.ApplicationPanelFrame;
 import io.github.astrapi69.swing.base.BasePanel;
 import io.github.astrapi69.swing.plaf.LookAndFeels;
