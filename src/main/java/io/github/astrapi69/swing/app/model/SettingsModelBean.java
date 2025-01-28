@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2024 Asterios Raptis
+ * Copyright (C) 2022 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,31 +25,20 @@
 package io.github.astrapi69.swing.app.model;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
 /**
- * The class {@link ApplicationModelBean} holds application-specific data
+ * The {@link SettingsModelBean} class represents the application configuration settings
  */
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder(toBuilder = true)
+@Data
+@SuperBuilder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ApplicationModelBean
+public class SettingsModelBean
 {
-	/** The title of the application */
-	String title;
-
-	/** The model for the settings */
-	SettingsModelBean settingsModelBean;
+	/** if this application is a service */
+	@Builder.Default
+	boolean service = false;
 }
